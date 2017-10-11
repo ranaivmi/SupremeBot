@@ -1,5 +1,30 @@
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
+import datetime
+
+def checkKeywords(keywords, description):
+    for i in keywords:
+        if i not in description:
+            return False
+    return True
+
+def searchArticle(browser, category, keywords, color):    
+
+    print("[*] Searching Article ...")
+    browser.get("http://www.supremenewyork.com/shop/all/" + category)
+    links = browser.find_elements_by_class_name("name-link")
+
+    i = 0
+    while i < len(links):
+        if (checkKeywords(keywords, links[i].text) & (color in links[i+1].text)):
+            print("Description : " + links[i].text)
+            print("Color : " + links[i+1].text)
+            links[i].click()
+            print("[+] Article found")
+            return True
+        i += 2
+    print("[-] Article not found")
+    return False
 
 def fillForm(browser, datas):
     # Fill name
@@ -52,9 +77,8 @@ def fillForm(browser, datas):
 
     # Accept the conditions
     browser.find_element_by_class_name("terms").click()
-    
 
-def main():
+def initDatas():
     datas = {}
     datas["order[billing_name]"] = "Mickael RANAIVOARISOA"
     datas["order[email]"] = "mickael.ranaivoarisoa@orange.fr"
@@ -68,24 +92,45 @@ def main():
     datas["credit_card[month]"] = "02"
     datas["credit_card[year]"] = "2019"
     datas["credit_card[vval]"] = "941"
-          
+    return datas
+
+def main():
+    datas = initDatas()
+    
     print("[*] Opening Browser ...")
     browser = webdriver.Firefox()
+    browser.implicitly_wait(10)
     print("[+] Browser OK")
-    print("[*] Redirection URL ...")
-    browser.get('http://www.supremenewyork.com/shop/accessories/x2ft7j1p5/zotpigjlv')
-    print("[+] Redirection URL OK")
 
+    print("Beginning at : " + str(datetime.datetime.now()))
+    category = "accessories"
+    keywords = []
+    keywords.append("Socks")
+    color = "Black"
+    size = ""
+
+    if (searchArticle(browser, category, keywords, color) == False):
+        return -1
 
     print("[*] Preparing the product ...")
-    # Select size
-    sizeSelect = Select(browser.find_element_by_id("size"))
-    sizeSelect.select_by_visible_text("Medium")
 
-    # Add to the bracket
-    browser.find_element_by_name("commit").click()
+    if (size != ""):
+        try:
+            # Select size
+            sizeSelect = Select(browser.find_element_by_id("size"))
+            sizeSelect.select_by_visible_text(size)
+        except:
+            print("[-] Article sold out or article not available")
+            return -1
 
-    # Checkout the bracket
+    try:
+        # Add to the basket
+        browser.find_element_by_name("commit").click()
+    except:
+         print("[-] Article sold out")
+         return -1
+
+    # Checkout the brasket
     browser.find_element_by_class_name("checkout").click()
     print("[+] Product checkout")
     
@@ -97,5 +142,7 @@ def main():
     print("[*] Confirmation of the  ...")
     browser.find_element_by_name("commit").click()
     print("[+] Command confirmed")
+    
+    print("Ending at : " + str(datetime.datetime.now()))
 
 main()
