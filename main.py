@@ -81,16 +81,16 @@ def initDatas():
     datas = {}
     datas["order[billing_name]"] = "Mickael RANAIVOARISOA"
     datas["order[email]"] = "mickael.ranaivoarisoa@orange.fr"
-    datas["order[tel]"] = "0652855770"
-    datas["order[billing_address]"] = "20 rue de l Abreuvoir"
-    datas["order[billing_city]"] = "Hadancourt le Haut Clocher"
-    datas["order[billing_zip]"] = "60240"
+    datas["order[tel]"] = "0611223344"
+    datas["order[billing_address]"] = "Adress"
+    datas["order[billing_city]"] = "City"
+    datas["order[billing_zip]"] = "Zip Code"
     datas["order[billing_country]"] = "FRANCE"
     datas["credit_card[type]"] = "Mastercard"
     datas["credit_card[cnb]"] = "4573559911224455"
     datas["credit_card[month]"] = "02"
     datas["credit_card[year]"] = "2019"
-    datas["credit_card[vval]"] = "941"
+    datas["credit_card[vval]"] = "888"
     return datas
 
 def main():
