@@ -9,7 +9,6 @@ def checkKeywords(keywords, description):
     return True
 
 def searchArticle(browser, category, keywords, color):    
-
     print("[*] Searching Article ...")
     browser.get("http://www.supremenewyork.com/shop/all/" + category)
     links = browser.find_elements_by_class_name("name-link")
@@ -98,9 +97,18 @@ def main():
     datas = initDatas()
     
     print("[*] Opening Browser ...")
+    profile = webdriver.FirefoxProfile()
+    profile.set_preference("network.proxy.type", 1)
+    profile.set_preference("network.proxy.http", "127.0.0.1")
+    profile.set_preference("network.proxy.http_port", 8080)
+    profile.update_preferences()
+    
+    #browser = webdriver.Firefox(firefox_profile = profile) 
     browser = webdriver.Firefox()
     browser.implicitly_wait(10)
-    print("[+] Browser OK")
+    print("[+] Browser Opened")
+
+    input("[*] Press Enter to continue and start ...")
 
     print("Beginning at : " + str(datetime.datetime.now()))
     category = "accessories"
