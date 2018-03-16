@@ -87,10 +87,10 @@ def initDatas():
     datas["order[billing_zip]"] = "Zip Code"
     datas["order[billing_country]"] = "FRANCE"
     datas["credit_card[type]"] = "Mastercard"
-    datas["credit_card[cnb]"] = "4573559911224455"
+    datas["credit_card[cnb]"] = "0000111122223333"
     datas["credit_card[month]"] = "02"
     datas["credit_card[year]"] = "2019"
-    datas["credit_card[vval]"] = "888"
+    datas["credit_card[vval]"] = "000"
     return datas
 
 def main():
