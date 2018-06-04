@@ -1,5 +1,0 @@
-# Python Dependencies 
-
-Pip : tool to install python modules
-Selenium : graphic python module (link : https://pypi.python.org/pypi/selenium)
-Geckodriver : driver to communicate with the browser
