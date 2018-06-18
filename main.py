@@ -138,7 +138,7 @@ def main():
          print("[-] Article sold out")
          return -1
 
-    # Checkout the brasket
+    # Checkout the basket
     browser.find_element_by_class_name("checkout").click()
     print("[+] Product checkout")
     
